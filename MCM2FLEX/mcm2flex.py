@@ -19,6 +19,8 @@ from subprocess import call
 
 
 
+
+
 def main():
 #Read in the arguments
 
@@ -28,7 +30,11 @@ def main():
    parser = argparse.ArgumentParser(description='This creates KPP folders from a MCM.kpp file.')
    parser.add_argument('-i', '--input', help='Input .kpp file', required=True)
    parser.add_argument('-o', '--output', help='Output folder name', required=True)
+   parser.add_argument('-m', '--manual_kpp', help='Chose Manual kpp generation', required=False)
    args = parser.parse_args()
+
+   if args['manual_kpp'].lower() == 'true' :
+      exicure_kpp_manualy = True
 
 # Show the arguments
    print ("Input file is '" + args.input + "'")
