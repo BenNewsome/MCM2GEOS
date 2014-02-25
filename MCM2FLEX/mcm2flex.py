@@ -33,8 +33,8 @@ def main():
    parser.add_argument('-m', '--manual_kpp', help='Chose Manual kpp generation', required=False)
    args = parser.parse_args()
 
-   if args['manual_kpp'].lower() == 'true' :
-      exicure_kpp_manualy = True
+   if args.manual_kpp == 'true' :
+      exicute_kpp_manualy = True
 
 # Show the arguments
    print ("Input file is '" + args.input + "'")
