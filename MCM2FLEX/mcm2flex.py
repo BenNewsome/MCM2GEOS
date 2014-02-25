@@ -101,12 +101,23 @@ def main():
 # This might change later if we want everything in one folder.
    os.chdir(output_folder)
    print os.path.abspath(__file__)
+
+
+
+# Create a option to do manual kpp calls due to buggs with kpp in testing.
+   if not exicute_kpp_manualy:
 # Does a system call for kpp
-#   call(["/home/bn506/Downloads/kpp_2_2_3/kpp-2.2.3/bin/kpp", "gckpp.kpp"])
-#call(["kpp", "gckpp.kpp"]) # Default kpp curently not working - see diff
+      try:
+         kpp.check_call(["kpp", "gckpp.kpp"]) # Default kpp curently not working - see diff
+      except kpp.CalledProcessError:
+         pass # Errors in KPP
+      except OSError:
+         pass # KPP not found
 
-   print "KPP files generated"
-
+      print "KPP files generated"
+   
+   else:
+      print 'manual kpp generation chosen. Expect errors now.'
 
 
 
@@ -130,6 +141,11 @@ def main():
 
    print 'Updating the Photolasis rates'
 
+
+# Check if file is here first
+   if not os.path.exists('gckpp_Rates.F90'):
+      print 'gckpp_Rates.F90 was not created for some reason \n Exiting'
+      exit(1)
    gckpp_Rates_old = open('gckpp_Rates.F90', 'r')
    gckpp_Rates_new = open('gckpp_Rates_new.F90', 'w')
 
