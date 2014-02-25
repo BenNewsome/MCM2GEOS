@@ -1,0 +1,2 @@
+OpenBable and pyble files shouldnt be included, as they should be downloaded and installed on the machene and used properly as modules.
+
