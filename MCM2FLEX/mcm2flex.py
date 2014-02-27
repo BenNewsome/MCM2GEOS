@@ -33,6 +33,7 @@ def main():
    parser.add_argument('-m', '--manual_kpp', help='Chose Manual kpp generation', required=False)
    args = parser.parse_args()
 
+   exicure_kpp_manualy = False
    if args.manual_kpp == 'true' :
       exicute_kpp_manualy = True
 
