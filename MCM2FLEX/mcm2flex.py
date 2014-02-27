@@ -15,7 +15,7 @@ import os
 import glob
 import re
 import argparse
-from subprocess import call
+import subprocess
 
 
 
@@ -33,7 +33,7 @@ def main():
    parser.add_argument('-m', '--manual_kpp', help='Chose Manual kpp generation', required=False)
    args = parser.parse_args()
 
-   exicure_kpp_manualy = False
+   exicute_kpp_manualy = False
    if args.manual_kpp == 'true' :
       exicute_kpp_manualy = True
 
@@ -115,8 +115,8 @@ def main():
    if not exicute_kpp_manualy:
 # Does a system call for kpp
       try:
-         kpp.check_call(["kpp", "gckpp.kpp"]) # Default kpp curently not working - see diff
-      except kpp.CalledProcessError:
+         subprocess.check_call(["kpp", "gckpp.kpp"]) # Default kpp curently not working - see diff
+      except subprocess.CalledProcessError:
          pass # Errors in KPP
       except OSError:
          pass # KPP not found
