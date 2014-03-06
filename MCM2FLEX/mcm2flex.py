@@ -61,10 +61,12 @@ def main():
       line = line.replace('\r','')
 
       if line.startswith('{*******'):
-         line = '#LANGUAGE   FORTRAN90 \n' 
-         +      '#HESSIAN    OFF \n'
-         + '\n' 
-
+         line = ( '#LANGUAGE   FORTRAN90 \n' 
+         +        '#HESSIAN    OFF \n'          
+         +        '#STOICMAT   OFF \n'
+         +        '\n' 
+         +        str(line)
+         )
 
 
 # Replace the first blank ignore with O2
@@ -122,7 +124,8 @@ def main():
    if not exicute_kpp_manualy:
 # Does a system call for kpp
       try:
-         subprocess.check_call(["kpp", "gckpp.kpp"]) # Default kpp curently not working - see diff
+         subprocess.check_call(["/home/bn506/Downloads/kpp_2_2_3/kpp-2.2.3/bin/kpp", "gckpp.kpp"]) # Temp kpp
+#         subprocess.check_call(["kpp", "gckpp.kpp"]) # Default kpp curently not working - see diff
       except subprocess.CalledProcessError:
          pass # Errors in KPP
       except OSError:
