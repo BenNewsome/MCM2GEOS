@@ -33,6 +33,8 @@ def main():
    parser.add_argument('-m', '--manual_kpp', help='Chose Manual kpp generation', required=False)
    args = parser.parse_args()
 
+
+# If KPP isnt working correctly allow manual kpp runs
    exicute_kpp_manualy = False
    if args.manual_kpp == 'true' :
       exicute_kpp_manualy = True
@@ -40,6 +42,9 @@ def main():
 # Show the arguments
    print ("Input file is '" + args.input + "'")
    print ("Output folder is'" + args.output + "'" )
+
+
+
 
 # Use the arguments
    input_file = args.input
@@ -50,9 +55,83 @@ def main():
    gckpp = os.path.join(output_folder, 'gckpp.kpp') 
 
 
+#Fix the .kpp and create a new gckpp.kpp file
+   Update_Kpp(input_file,gckpp)
+
+
+
+# Call kpp with the new file
+   print "Calling KPP"
+
+# Decend into the folder containing gckpp.kpp
+# This might change later if we want everything in one folder.
+   os.chdir(output_folder)
+   print os.path.abspath(__file__)
+
+
+
+# Create a option to do manual kpp calls due to buggs with kpp in testing.
+   if not exicute_kpp_manualy:
+# Does a system call for kpp
+      try:
+         subprocess.check_call(["/home/bn506/Downloads/kpp_2_2_3/kpp-2.2.3/bin/kpp", "gckpp.kpp"]) # Temp kpp
+#         subprocess.check_call(["kpp", "gckpp.kpp"]) # Default kpp curently not working - see diff
+      except subprocess.CalledProcessError:
+         pass # Errors in KPP
+      except OSError:
+         pass # KPP not found
+
+      print "KPP files generated"
+   
+   else:
+      print 'manual kpp generation chosen. Expect errors now.'
+
+
+
+   print "Changing files from .f to .F90"
+
+# Change the generated filetypes from .f to .F90
+   files_to_change = '*.f'
+   old_end='.f'
+   new_end='.F90'
+
+
+   for filename in glob.glob(files_to_change):
+      newfile = filename
+      newfile = newfile.replace(old_end, new_end)
+      os.rename(filename, newfile)
+
+   print 'Files renamed'
+
+# Parse gckpp_rates.F90 to change photolosys rates.
+# J in MCM to PHOTOL in geos
+
+   os.chdir('../')
+
+# Assend back into the origional directory - might change later
+
+
+   print "Script Complete"
+
+
+# END OF MAIN PROGRAM
+
+
+def Update_Kpp(input_file,gckpp):
+
+
+
 # Open the kpp file to fix
    f1 = open(input_file, 'rb')
    f2 = open(gckpp, 'wb')
+
+
+   # Get the conversion dictionary
+   Photol_Conversion = Get_Photol_Dictionary()
+   print Photol_Conversion.keys()
+
+
+   In_The_Rates = False
 
 # Start scanning the document
 
@@ -103,6 +182,31 @@ def main():
          print 'New line is "' + str(line) + "'"
 
 
+
+
+
+#Search the line and replace any items in the dictionary with its defaniton
+
+# Check every word of every line for every key
+
+#      for Key in line:
+#         if Key in Photol_Conversion.keys():
+#            line = line.replace(Key, Photol_Conversion[Key])
+#            print line
+
+      for Key in Photol_Conversion.keys():
+         if Key in line:
+            line = line.replace(Key, Photol_Conversion[Key])
+            print line
+         
+
+##      Update_Photol(line, Photol_Conversion)
+         
+         
+
+
+
+
 # Write the updated line   
       f2.write(line)
 
@@ -110,105 +214,8 @@ def main():
    f1.close()
    f2.close()
 
-# Call kpp with the new file
-   print "Calling KPP"
 
-# Decend into the folder containing gckpp.kpp
-# This might change later if we want everything in one folder.
-   os.chdir(output_folder)
-   print os.path.abspath(__file__)
-
-
-
-# Create a option to do manual kpp calls due to buggs with kpp in testing.
-   if not exicute_kpp_manualy:
-# Does a system call for kpp
-      try:
-         subprocess.check_call(["/home/bn506/Downloads/kpp_2_2_3/kpp-2.2.3/bin/kpp", "gckpp.kpp"]) # Temp kpp
-#         subprocess.check_call(["kpp", "gckpp.kpp"]) # Default kpp curently not working - see diff
-      except subprocess.CalledProcessError:
-         pass # Errors in KPP
-      except OSError:
-         pass # KPP not found
-
-      print "KPP files generated"
-   
-   else:
-      print 'manual kpp generation chosen. Expect errors now.'
-
-
-
-   print "Changing files from .f to .F90"
-
-# Change the generated filetypes from .f to .F90
-   files_to_change = '*.f'
-   old_end='.f'
-   new_end='.F90'
-
-
-   for filename in glob.glob(files_to_change):
-      newfile = filename
-      newfile = newfile.replace(old_end, new_end)
-      os.rename(filename, newfile)
-
-   print 'Files renamed'
-
-# Parse gckpp_rates.F90 to change photolosys rates.
-# J in MCM to PHOTOL in geos
-
-   print 'Updating the Photolasis rates'
-
-
-# Check if file is here first
-   if not os.path.exists('gckpp_Rates.F90'):
-      print 'gckpp_Rates.F90 was not created for some reason \n Exiting'
-      exit(1)
-   gckpp_Rates_old = open('gckpp_Rates.F90', 'r')
-   gckpp_Rates_new = open('gckpp_Rates_new.F90', 'w')
-
-   Photol_Conversion = Get_Photol_Dictionary()
-
-   print Photol_Conversion.keys()
-
-   In_The_Rates = False
-   for line in gckpp_Rates_old:
-# If in the Subroutine Update_Rconst then translate
-      Trimmed_Line = line.lstrip()
-
-      if Trimmed_Line.startswith('SUBROUTINE Update_RCONST'):
-         In_The_Rates = True
-
-      if line.startswith('END SUBROUTINE Update_RCONST'):
-         In_The_Rates = False
-
-      if In_The_Rates:
-         for Key in Photol_Conversion.keys():
-            if Key in line:
-               line = line.replace(Key, Photol_Conversion[Key])
-               print line
-         Update_Photol(line, Photol_Conversion)
-         
-      gckpp_Rates_new.write(line)      
-
-   gckpp_Rates_new.close()
-
-# #Need to repalce the old file with the new one
-   print '~~~The new file still needs to replace the old one!!!!!~~~'
-
-
-   print 'Photolasys rates updated'
-
-   os.chdir('../')
-
-# Assend back into the origional directory - might change later
-
-
-   print "Script Complete"
-
-
-# END OF MAIN PROGRAM
-
-
+   return
 
 
 
