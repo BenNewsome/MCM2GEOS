@@ -60,6 +60,13 @@ def main():
 # Strip the windows newline
       line = line.replace('\r','')
 
+      if line.startswith('{*******'):
+         line = '#LANGUAGE   FORTRAN90 \n' 
+         +      '#HESSIAN    OFF \n'
+         + '\n' 
+
+
+
 # Replace the first blank ignore with O2
       if line.startswith(' ='):
          print 'Old line is "' + str(line) + "'"
