@@ -25,7 +25,9 @@ def main():
 #Read in the arguments
 
 
-   
+######################################################################
+# Read in the arguments
+######################################################################   
 
    parser = argparse.ArgumentParser(description='This creates KPP folders from a MCM.kpp file.')
    parser.add_argument('-i', '--input', help='Input .kpp file', required=True)
@@ -44,34 +46,66 @@ def main():
    print ("Output folder is'" + args.output + "'" )
 
 
-
-
 # Use the arguments
    input_file = args.input
    output_folder = args.output
    if not os.path.exists(output_folder):
       os.makedirs(output_folder)
-
    gckpp = os.path.join(output_folder, 'gckpp.kpp') 
 
+
+
+######################################################################
+# Fix kpp
+######################################################################
 
 #Fix the .kpp and create a new gckpp.kpp file
    Update_Kpp(input_file,gckpp)
 
 
+######################################################################
+#  Exicute kpp
+######################################################################
 
-# Call kpp with the new file
-   print "Calling KPP"
+   Exicute_KPP(output_folder,exicute_kpp_manualy)
+   
+
+######################################################################
+#  Rename the Files from .f to .F90
+######################################################################
+ 
+ 
+   Rename_Files(output_folder)
+
+   print "Script Complete"
+
+######################################################################
+#  END OF MAIN PROGRAM
+######################################################################
+
+#
+#
+#
+#
+#
+#
+#
+
+
+
+######################################################################
+#  Subroutines
+######################################################################
+
+def Exicute_KPP(directory,exicute_kpp_manualy):
+
 
 # Decend into the folder containing gckpp.kpp
-# This might change later if we want everything in one folder.
-   os.chdir(output_folder)
-   print os.path.abspath(__file__)
-
-
+   os.chdir(directory)
 
 # Create a option to do manual kpp calls due to buggs with kpp in testing.
    if not exicute_kpp_manualy:
+      print "Calling KPP"
 # Does a system call for kpp
       try:
          subprocess.check_call(["/home/bn506/Downloads/kpp_2_2_3/kpp-2.2.3/bin/kpp", "gckpp.kpp"]) # Temp kpp
@@ -84,15 +118,26 @@ def main():
       print "KPP files generated"
    
    else:
-      print 'manual kpp generation chosen. Expect errors now.'
+      print 'manual kpp generation chosen. Please run kpp now and press enter when kpp has finished.'
+      wait = input("Press Enter when KPP is complete")
+      print 'Continueing'
+
+   os.chdir('../')
 
 
 
-   print "Changing files from .f to .F90"
+
+######################################################################
+def Rename_Files(directory):
+
+
+   print "Changing files from .f90 to .F90"
+   
+   os.chdir(directory)
 
 # Change the generated filetypes from .f to .F90
-   files_to_change = '*.f'
-   old_end='.f'
+   files_to_change = '*.f90'
+   old_end='.f90'
    new_end='.F90'
 
 
@@ -101,43 +146,33 @@ def main():
       newfile = newfile.replace(old_end, new_end)
       os.rename(filename, newfile)
 
-   print 'Files renamed'
-
-# Parse gckpp_rates.F90 to change photolosys rates.
-# J in MCM to PHOTOL in geos
-
    os.chdir('../')
 
-# Assend back into the origional directory - might change later
+   print 'Files renamed'
+   return
 
 
-   print "Script Complete"
 
 
-# END OF MAIN PROGRAM
 
-
+######################################################################
 def Update_Kpp(input_file,gckpp):
 
-
+   print 'Updating the MCM kpp file to be compatable with GeosChem'
 
 # Open the kpp file to fix
    f1 = open(input_file, 'rb')
    f2 = open(gckpp, 'wb')
 
-
-   # Get the conversion dictionary
+# Get the conversion dictionary
    Photol_Conversion = Get_Photol_Dictionary()
-   print Photol_Conversion.keys()
-
-
-   In_The_Rates = False
-
-# Start scanning the document
 
    for line in f1:
 # Strip the windows newline
       line = line.replace('\r','')
+
+
+# Add the kpp options
 
       if line.startswith('{*******'):
          line = ( '#LANGUAGE   FORTRAN90 \n' 
@@ -150,25 +185,18 @@ def Update_Kpp(input_file,gckpp):
 
 # Replace the first blank ignore with O2
       if line.startswith(' ='):
-         print 'Old line is "' + str(line) + "'"
          line = line.replace(' =','O2 =')
-         print 'New line is "' + str(line) + "'"
 
 # Fix the O + O3 equation
       if 'O + O3 = :' in line:
-         print 'Old line is "' + str(line) + "'"
          line = line.replace('O + O3 = :','O + O3 = O2 :')
-         print 'New line is "' + str(line) + "'"
 
 # #Fix the OH + HO2 equation
       if 'OH + HO2 = :' in line:
-         print 'Old line is "' + str(line) + "'"
          line = line.replace('OH + HO2 = :','OH + HO2 = H2O + O2 :')
-         print 'New line is "' + str(line) + "'"
 
 # Add the DEFFIX
       if line.startswith('#INCLUDE atoms'):
-         print 'Old line is "' + str(line) + "'"
          line = (str(line) + '\n' + \
          '\n' + \
          '#DEFFIX' + '\n' +
@@ -179,33 +207,12 @@ def Update_Kpp(input_file,gckpp):
          'H2O             =          IGNORE;' + '\n' +
          'DRYDEP          =          IGNORE;' + '\n' +
          '\n')    
-         print 'New line is "' + str(line) + "'"
-
-
-
 
 
 #Search the line and replace any items in the dictionary with its defaniton
-
-# Check every word of every line for every key
-
-#      for Key in line:
-#         if Key in Photol_Conversion.keys():
-#            line = line.replace(Key, Photol_Conversion[Key])
-#            print line
-
       for Key in Photol_Conversion.keys():
          if Key in line:
             line = line.replace(Key, Photol_Conversion[Key])
-            print line
-         
-
-##      Update_Photol(line, Photol_Conversion)
-         
-         
-
-
-
 
 # Write the updated line   
       f2.write(line)
@@ -213,25 +220,29 @@ def Update_Kpp(input_file,gckpp):
 # Close the files
    f1.close()
    f2.close()
-
-
+   print 'Update Complete'
    return
 
 
 
-# Defined functions
-
+######################################################################
 def Update_Photol(text, Photol_Conversion):
    for key in Photol_Conversion.items():
       text = text.replace(*key)      
    return text
+
+
+
+
+######################################################################
+def Get_Photol_Dictionary():
+
 
 # Photol conversion Dictionary
 # This should be put into a module
 # At present some of the J values arent used, and unknown.
 # They might need edditing later
 
-def Get_Photol_Dictionary():
    Photol_Conversion = {
       'J(1)'   :  'PHOTOL(3)',
       'J(2)'   :  'PHOTOL(2)',
@@ -241,8 +252,8 @@ def Get_Photol_Dictionary():
       'J(6)'   :  'PHOTOL(12)',
       'J(7)'   :  'PHOTOL(10)',
       'J(8)'   :  'PHOTOL(9)',   
-      'J(9)'   :  'PHOTOL(###############)',
-      'J(10)'   :  'PHOTOL(################)',
+      'J(9)'   :  '(1.0)',#############
+      'J(10)'   :  '(1.0))',##########
       'J(11)'   :  'PHOTOL(7)',
       'J(12)'   :  'PHOTOL(8)',
       'J(13)'   :  '(PHOTOL(15)+PHOTOL(16))', #Might need devidint by 2
