@@ -218,48 +218,69 @@ def Update_Photol(text, Photol_Conversion):
 
 # Photol conversion Dictionary
 # This should be put into a module
+# At present some of the J values arent used, and unknown.
+# They might need edditing later
+
 def Get_Photol_Dictionary():
    Photol_Conversion = {
-      'J(1)'   :  'PHOTOL(1)',
-      'J(2)'   :  'PHOTOL(1)',
-      'J(3)'   :  'PHOTOL(1)',
-      'J(4)'   :  'PHOTOL(1)',
-      'J(5)'   :  'PHOTOL(1)',
-      'J(6)'   :  'PHOTOL(1)',
-      'J(7)'   :  'PHOTOL(1)',
-      'J(8)'   :  'PHOTOL(1)',   
-      'J(9)'   :  'PHOTOL(1)',
-      'J(10)'   :  'PHOTOL(1)',
-      'J(11)'   :  'PHOTOL(1)',
-      'J(12)'   :  'PHOTOL(1)',
-      'J(13)'   :  'PHOTOL(1)',
-      'J(14)'   :  'PHOTOL(1)',
-      'J(15)'   :  'PHOTOL(1)',
-      'J(16)'   :  'PHOTOL(1)',
-      'J(17)'   :  'PHOTOL(1)',
-      'J(18)'   :  'PHOTOL(1)',   
-      'J(19)'   :  'PHOTOL(1)',
-      'J(20)'   :  'PHOTOL(1)',
-      'J(21)'   :  'PHOTOL(1)',
-      'J(22)'   :  'PHOTOL(1)',
-      'J(23)'   :  'PHOTOL(1)',
-      'J(24)'   :  'PHOTOL(1)',
-      'J(25)'   :  'PHOTOL(1)',
-      'J(26)'   :  'PHOTOL(1)',
-      'J(27)'   :  'PHOTOL(1)',
-      'J(28)'   :  'PHOTOL(1)',   
-      'J(29)'   :  'PHOTOL(1)',
-      'J(30)'   :  'PHOTOL(1)',
-      'J(31)'   :  'PHOTOL(1)',
-      'J(32)'   :  'PHOTOL(1)',
-      'J(33)'   :  'PHOTOL(1)',
-      'J(34)'   :  'PHOTOL(1)',
-      'J(35)'   :  'PHOTOL(1)',
-      'J(36)'   :  'PHOTOL(1)',
-      'J(37)'   :  'PHOTOL(1)',
-      'J(38)'   :  'PHOTOL(1)',   
-      'J(39)'   :  'PHOTOL(1)',
-      'J(40)'   :  'PHOTOL(1)'}
+      'J(1)'   :  'PHOTOL(3)',
+      'J(2)'   :  'PHOTOL(2)',
+      'J(3)'   :  'PHOTOL(5)',
+      'J(4)'   :  'PHOTOL(4)',
+      'J(5)'   :  'PHOTOL(13)',
+      'J(6)'   :  'PHOTOL(12)',
+      'J(7)'   :  'PHOTOL(10)',
+      'J(8)'   :  'PHOTOL(9)',   
+      'J(9)'   :  'PHOTOL(###############)',
+      'J(10)'   :  'PHOTOL(################)',
+      'J(11)'   :  'PHOTOL(7)',
+      'J(12)'   :  'PHOTOL(8)',
+      'J(13)'   :  '(PHOTOL(15)+PHOTOL(16))', #Might need devidint by 2
+      'J(14)'   :  'PHOTOL(18)',
+      'J(15)'   :  'PHOTOL(18)',
+      'J(16)'   :  'PHOTOL(18)',
+      'J(17)'   :  'PHOTOL(18)',
+      'J(18)'   :  '0.5*PHOTOL(28)',   
+      'J(19)'   :  '0.5*PHOTOL(28)',
+      'J(20)'   :  'PHOTOL(############)',
+      'J(21)'   :  '(PHOTOL(15)+PHOTOL(16))',   #Might need deviding by 2
+      'J(22)'   :  'PHOTOL(21)',
+      'J(23)'   :  '(0.6*PHOTOL(27))',
+      'J(24)'   :  '(0.4*PHOTOL(27))',
+      'J(25)'   :  '1.0',###
+      'J(26)'   :  '1.0',#####
+      'J(27)'   :  '1.0',###
+      'J(28)'   :  '1.0',   ####
+      'J(29)'   :  '1.0',####
+      'J(30)'   :  '1.0',####
+      'J(31)'   :  'PHOTOL(25)',
+      'J(32)'   :  '(0.5*PHOTOL(24))',
+      'J(33)'   :  '(0.5*PHOTOL(24))',
+      'J(34)'   :  'PHOTOL(26)',
+      'J(35)'   :  'PHOTOL(26)',
+      'J(36)'   :  '1.0',#####
+      'J(37)'   :  '1.0',#####
+      'J(38)'   :  '1.0',   ####
+      'J(39)'   :  '1.0',#####
+      'J(40)'   :  '1.0',######
+      'J(41)'   :  'PHOTOL(6)',
+      'J(42)'   :  '1.0',####
+      'J(43)'   :  '1.0',#
+      'J(44)'   :  '1.0',##
+      'J(45)'   :  '1.0',###
+      'J(46)'   :  '1.0',####
+      'J(47)'   :  '1.0',####
+      'J(48)'   :  '1.0',##
+      'J(49)'   :  '1.0',##
+      'J(50)'   :  '1.0',#
+      'J(51)'   :  'PHOTOL(22)',
+      'J(52)'   :  'PHOTOL(22)',
+      'J(53)'   :  'PHOTOL(22',
+      'J(54)'   :  'PHOTOL(22)',
+      'J(55)'   :  'PHOTOL(22)',
+      'J(56)'   :  'PHOTOL(22)',
+      'J(57)'   :  'PHOTOL(22)',
+      }
    
    return Photol_Conversion
 
