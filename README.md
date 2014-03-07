@@ -9,7 +9,7 @@ KPP		- For creating the Fortran files from the kpp files
 For the MCM Functional group extraction:
 http://openbabel.org/wiki/Python
 OpenBable	- For looking what functional groups are required
-Pyble		- The api is needed 
+Pyble		- The api is needed for the deposition species.
 
 
 
