@@ -39,6 +39,7 @@ aldehydes = Smarts("[CX3H1](=O)[#6]")
 
 
 
+
 # Add the fuctional groups
 First_line = True
 for line in species:
@@ -49,10 +50,10 @@ for line in species:
       First_line = False
    else:
    # Check if Smiles string contains a functional group (Might replace with Inchi)
-      print line[1]
-      mol = readstring("smi", line[1].strip())
-      line.append(len(ethyl.findall(mol)))
-      line.append(len(aldehydes.findall(mol)))
+      print line[1]				# print the smiles string
+      mol = readstring("smi", line[1].strip())	# read the smiles string in smiles format
+      line.append(len(ethyl.findall(mol)))	# append the line with the number of ethyl groups
+      line.append(len(aldehydes.findall(mol)))	# '' '' aldehyde groups
 
 
 print species
