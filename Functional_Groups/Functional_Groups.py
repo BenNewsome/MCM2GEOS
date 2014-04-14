@@ -30,9 +30,9 @@ MCM_Inchis.close()
 # These probably need checking
 
 
-ethyl = Smarts("[#6][#6]")
-aldehydes = Smarts("[CX3H1](=O)[#6]")
-
+Ethyl = Smarts("[#6][#6]")
+Aldehydes = Smarts("[CX3H1](=O)[#6]")
+Carbonyl = Smarts("*C(=O)*")	# RC(=O)R
 
 
 
@@ -45,15 +45,18 @@ First_line = True
 for line in species:
    # Adds the titles in the first line
    if First_line:
-      line.append('ethyl')
-      line.append('aldehydes')
+      line.append('Ethyl')
+      line.append('Aldehydes')
+      line.append('Carbonyl')
       First_line = False
    else:
    # Check if Smiles string contains a functional group (Might replace with Inchi)
       print line[1]				# print the smiles string
-      mol = readstring("smi", line[1].strip())	# read the smiles string in smiles format
-      line.append(len(ethyl.findall(mol)))	# append the line with the number of ethyl groups
-      line.append(len(aldehydes.findall(mol)))	# '' '' aldehyde groups
+#      mol = readstring("smi", line[1].strip())	# read the smiles string in smiles format
+      mol = readstring("inc", line[1].strip())	# read the InChI string in smiles format
+      line.append(len(Ethyl.findall(mol)))	# append the line with the number of ethyl groups
+      line.append(len(Aldehydes.findall(mol)))	# '' '' aldehyde groups
+      line.append(len(Carbonyl.findall(mol)))	# '' '' Carbonyl groups
 
 
 print species
