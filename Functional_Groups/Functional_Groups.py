@@ -55,7 +55,7 @@ for line in species:
       First_line = False
    else:
    # Check if Smiles string contains a functional group (Might replace with Inchi)
-      print line[1]				# print the smiles string
+#     print line[1]				# print the smiles string
 #      mol = readstring("smi", line[1].strip())	# read the smiles string in smiles format
       mol = readstring("inchi", line[2].strip())	# read the InChI string in smiles format
       line.append(len(Ethyl.findall(mol)))	# append the line with the number of ethyl groups
@@ -65,9 +65,75 @@ for line in species:
       line.append(len(Pan.findall(mol)))	# '' '' Pan groups
 
 
-print species
+print('CVS written') 
 
 # Write out the output CSV
 writer.writerows(species)
 
 Functional_Groups.close()
+
+#This bit writes out a HTML file and all the images.
+
+html = open('MCM_deposition.html','wb')
+
+
+print('Writing the HTML file')
+#write the header
+html.write('''
+
+<!DOCTYPE html>
+<html>
+<body>
+
+<table style="width:300px">
+
+''')
+
+#Write the content
+for line in species:
+  html.write( 
+  '<tr>' +	
+    '<td>'+str(line[0])+'</td>'+
+    '<td>'+str(line[1])+'</td>'+	
+    '<td>'+str(line[2])+'</td>'+
+    '<td>'+str(line[3])+'</td>'+
+    '<td>'+str(line[4])+'</td>'+
+    '<td>'+str(line[5])+'</td>'+
+    '<td>'+str(line[6])+'</td>'+
+    '<td>'+str(line[7])+'</td>'+
+    '<td>'+str(line[8])+'</td>'+
+    '<td>'+'<img width="100" height="100" src="img/'+str(line[0])+'.png" alt="'+str(line[0])+'">'+'</td>'+
+  '</tr>'
+  )
+
+
+#Write the end
+html.write('''
+</table>
+
+</body>
+</html>
+
+''')
+
+print('HTML file written')
+
+print('Creating the pngs')
+
+Firstline=True
+a=0
+for line in species:
+  if Firstline:
+    Firstline=False
+  else:
+    print('Writing out the png')
+    mol = readstring("inchi", line[2].strip())	# read the InChI string in smiles format
+    img_filename = 'img/' + line[0] + '.png'
+    mol.draw(show=False, filename=img_filename )
+    a=a+1
+    if a==200:
+      exit()
+
+
+
+
