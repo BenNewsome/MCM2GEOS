@@ -10,11 +10,27 @@ import csv
 from pybel import *
 
 # Open the IO files
-MCM_Inchis = open('MCMv3.2inchis.csv', 'rb')
-Functional_Groups = open('Functional_groups.csv','wb')
+# Change the inputs here
+
+#Input_InChI = open('MCMv3.2inchis.csv', 'rb')
+#Functional_Groups = open('Functional_groups.csv','wb')
+#Webpage = 'MCM_deposition'
+
+Input_InChI = open('GeosChem_Species.csv', 'rb')
+Functional_Groups = open('GEOS_groups.csv','wb')
+Webpage = 'GEOS_depostion'
+
+# Specify the column that the inchis are provided in
+InChI_Column = 3
+
+# Python starts counting at 0 so take 1
+InChI_Column = InChI_Column - 1
+
+
 
 # Accociate the IO files as CSV
-reader = csv.reader(MCM_Inchis, )
+
+reader = csv.reader(Input_InChI, )
 writer = csv.writer(Functional_Groups)
 
 # Read in the input CSV
@@ -22,7 +38,7 @@ species = []
 for row in reader:
    species.append(row)
 
-MCM_Inchis.close()
+Input_InChI.close()
 
 
 
@@ -39,7 +55,7 @@ Pan = Smarts("*C(=O)OON(=O)=O")	#peroxyacetylnitrate
 
 
 
-
+Blank_Line=""
 
 
 # Add the fuctional groups
@@ -54,16 +70,21 @@ for line in species:
       line.append('Pan')
       First_line = False
    else:
-   # Check if Smiles string contains a functional group (Might replace with Inchi)
-#     print line[1]				# print the smiles string
-#      mol = readstring("smi", line[1].strip())	# read the smiles string in smiles format
-      mol = readstring("inchi", line[2].strip())	# read the InChI string in smiles format
-      line.append(len(Ethyl.findall(mol)))	# append the line with the number of ethyl groups
-      line.append(len(Aldehydes.findall(mol)))	# '' '' aldehyde groups
-      line.append(len(Carbonyl.findall(mol)))	# '' '' Carbonyl groups
-      line.append(len(Peroxide.findall(mol)))	# '' '' Peroxide groups
-      line.append(len(Pan.findall(mol)))	# '' '' Pan groups
-
+      if not (line[InChI_Column].strip() == Blank_Line):
+ 
+      # Check if Smiles string contains a functional group (Might replace with Inchi)
+         mol = readstring("inchi", line[InChI_Column].strip())	# read the InChI string in smiles format
+         line.append(len(Ethyl.findall(mol)))	# append the line with the number of ethyl groups
+         line.append(len(Aldehydes.findall(mol)))	# '' '' aldehyde groups
+         line.append(len(Carbonyl.findall(mol)))	# '' '' Carbonyl groups
+         line.append(len(Peroxide.findall(mol)))	# '' '' Peroxide groups
+         line.append(len(Pan.findall(mol)))	# '' '' Pan groups
+      else:
+         line.append(Blank_Line)  
+         line.append(Blank_Line)  
+         line.append(Blank_Line)  
+         line.append(Blank_Line)  
+         line.append(Blank_Line)  
 
 print('CVS written') 
 
@@ -73,8 +94,11 @@ writer.writerows(species)
 Functional_Groups.close()
 
 #This bit writes out a HTML file and all the images.
+if not os.path.exists('web'):
+   os.makedirs('web')
 
-html = open('MCM_deposition.html','wb')
+
+html = open('web/'+Webpage+'.html','wb')
 
 
 print('Writing the HTML file')
@@ -120,19 +144,23 @@ print('HTML file written')
 
 print('Creating the pngs')
 
+if not os.path.exists('web/img/'):
+   os.makedirs('web/img/')
+
 Firstline=True
 a=0
 for line in species:
   if Firstline:
     Firstline=False
   else:
-    print('Writing out the png')
-    mol = readstring("inchi", line[2].strip())	# read the InChI string in smiles format
-    img_filename = 'img/' + line[0] + '.png'
-    mol.draw(show=False, filename=img_filename )
-    a=a+1
-    if a==200:
-      exit()
+    if not (line[InChI_Column].strip() == Blank_Line): #Make sure the line isn't blank
+      print('Writing out the png')
+      mol = readstring("inchi", line[2].strip())	# read the InChI string in smiles format
+      img_filename = 'web/img/' + line[0] + '.png'
+      mol.draw(show=False, filename=img_filename )
+      a=a+1
+      if a==200:
+        exit()
 
 
 

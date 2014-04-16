@@ -1,0 +1,97 @@
+GEOS-Chem Name,Formula,InChI,Notes,Ethyl,Aldehydes,Carbonyl,Peroxide,Pan
+A3O2,CH3CH2CH2OO,"InChI=1S/C3H7O2/c1-3(2)5-4/h3H,1-2H3",primary RO2 from C3H8,2,0,0,1,0
+ACET,CH3C(O)CH3,InChI=1S/C3H6O/c1-3(2)4/h1-2H3,acetone,2,0,1,0,0
+ACTA,CH3C(O)OH,"InChI=1S/C2H4O2/c1-2(3)4/h1H3,(H,3,4)",acetic acid,1,0,1,0,0
+ALD2,CH3CHO,"InChI=1S/C2H4O/c1-2-3/h2H,1H3",acetaldehyde,1,1,0,0,0
+ALK4,RH,,≥C4 alkanes,,,,,
+ATO2,CH3C(O)CH2O2,,RO2 from acetone,,,,,
+B3O2,CH3CH(OO)CH3,,secondary RO2 from C3H8,,,,,
+C2H6,C2H6,InChI=1S/C2H6/c1-2/h1-2H3,ethane,1,0,0,0,0
+C3H8,C3H8,"InChI=1S/C3H8/c1-3-2/h3H2,1-2H3",propane,2,0,0,0,0
+CH2O,CH2O,InChI=1S/CH2O/c1-2/h1H2,formaldehyde,0,0,0,0,0
+CH4,CH4,InChI=1S/CH4/h1H4,methane,0,0,0,0,0
+CO,CO,InChI=1S/CO/c1-2,carbon monoxide,0,0,0,0,0
+CO2,CO2,InChI=1S/CO2/c2-1-3,carbon dioxide,0,0,0,0,0
+DRYDEP,,,generic entry for dry dep,,,,,
+EMISSION,,,generic entry to do emissions,,,,,
+EOH,C2H5OH,"InChI=1S/C2H6O/c1-2-3/h3H,2H2,1H3",ethanol,1,0,0,0,0
+ETO2,CH3CH2OO,"InChI=1S/C2H5O2/c1-2-4-3/h2H2,1H3",This might be the non radical?,1,0,0,1,0
+ETP,CH3CH2OOH,"InChI=1S/C2H6O2/c1-2-4-3/h3H,2H2,1H3",ethylhydroperoxide,1,0,0,1,0
+GLYC,HOCH2CHO,"InChI=1S/C2H4O2/c3-1-2-4/h1,4H,2H2",glycoaldehyde (hydroxyacetaldehyde),1,1,0,0,0
+GLYX,CHOCHO,InChI=1S/C2H2O2/c3-1-2-4/h1-2H,glyoxal,1,2,0,0,0
+H2,H2,InChI=1S/H2/h1H,hydrogen atom,0,0,0,0,0
+H2O,H2O,InChI=1S/H2O/h1H2,water vapor,0,0,0,0,0
+H2O2,H2O2,InChI=1S/H2O2/c1-2/h1-2H,hydrogen peroxide,0,0,0,0,0
+HAC,HOCH2C(O)CH3,"InChI=1S/C3H6O2/c1-3(5)2-4/h4H,2H2,1H3",hydroxyacetone,2,0,1,0,0
+HCOOH,HCOOH,"InChI=1S/CH2O2/c2-1-3/h1H,(H,2,3)",formic acid,0,0,0,0,0
+HNO2,HONO,"InChI=1S/HNO2/c2-1-3/h(H,2,3)",nitrous acid,0,0,0,0,0
+HNO3,HNO3,"InChI=1S/HNO3/c2-1(3)4/h(H,2,3,4)",nitric acid,0,0,0,0,0
+HNO4,HNO4,InChI=1S/HNO4/c2-1(3)5-4/h4H,pernitric acid,0,0,0,1,0
+HO2,HO2,InChI=1S/H2O2/c1-2/h1-2H/p-1,hydroperoxyl radical,0,0,0,0,0
+IALD,HOCH2C(CH3)=CHCHO,,hydroxy carbonyl alkenes from isoprene,,,,,
+IAP,HOCH2C(CH3)(OOH)CH(OH)CHO,,peroxide from IAO2,,,,,
+INO2,O2NOCH2C(OO)(CH3)CH=CH2,,RO2 from ISOP+NO3,,,,,
+INPN,O2NOCH2C(OOH)(CH3)CH=CH2,,peroxide from INO2,,,,,
+ISN2,CH2=C(CH3)CH(ONO2)CH2OH,,isoprene nitrtate,,,,,
+ISNO3,RONO2,,stable organic nitrate,,,,,
+ISNP,HOCH2C(OOH)(CH3)CH(ONO2)CH2OH,,peroxide from ISOPNBO2 and ISOPNDO2,,,,,
+ISOP,CH2=C(CH3)CH=CH2,"InChI=1S/C5H8/c1-4-5(2)3/h4H,1-2H2,3H3",isoprene,2,0,0,0,0
+KO2,RO2 from >3 ketones,,RO2 from >3 ketones,,,,,
+M,,,for three body reactions,,,,,
+MACR,CH2=C(CH3)CHO,"InChI=1S/C4H6O/c1-4(2)3-5/h3H,1H2,2H3",methacrolein,2,1,0,0,0
+MAN2,HOCH2C(ONO2)(CH3)CHO,,RO2 from MACR+NO3,,,,,
+MAO3,CH2=C(CH3)C(O)OO,,peroxyacyl from MVK and MACR,,,,,
+MAOP,CH2=C(CH3)C(O)OOH,,peroxide from MAO3,,,,,
+MAP,CH3C(O)OOH,"InChI=1S/C2H4O3/c1-2(3)5-4/h4H,1H3",peroxyacetic acid,1,0,1,1,0
+MCO3,CH3C(O)OO,,peroxyacetyl radical,,,,,
+MEK,RC(O)R,,>3 ketones,,,,,
+MGLY,CH3COCHO,"InChI=1S/C3H4O2/c1-3(5)2-4/h2H,1H3",methylglyoxyal methyglyoxal - no y in it ?,2,1,1,0,0
+MNO3,CH3ONO2,InChI=1S/CH3NO3/c1-5-2(3)4/h1H3,methylnitrate,0,0,0,0,0
+MO2,CH3O2,InChI=1S/CH3O2/c1-3-2/h1H3,methylperoxy radical,0,0,0,1,0
+MOH,CH3OH,"InChI=1S/CH4O/c1-2/h2H,1H3",methanol,0,0,0,0,0
+MP,CH3OOH," InChI=1S/CH4O2/c1-3-2/h2H,1H3",methylhydroperoxide,0,0,0,1,0
+MRO2,HOCH2C(OO)(CH3)CHO,,RO2 from MACR+OH,,,,,
+MRP,HOCH2C(OOH)(CH3)CHO,,peroxide from MRO2,,,,,
+MVK,CH2=CHC(O)CH3,"InChI=1S/C4H6O/c1-3-4(2)5/h3H,1H2,2H3",methylvinylketone,2,0,1,0,0
+N2,N2,InChI=1S/N2/c1-2,nitrogen,0,0,0,0,0
+N2O,N2O,InChI=1S/N2O/c1-2-3,nitrous oxide,0,0,0,0,0
+N2O5,N2O5,InChI=1S/N2O5/c3-1(4)7-2(5)6,dinitrogen pentoxide,0,0,0,0,0
+NH2,NH2,InChI=1S/H2N/h1H2/q-1,ammonia radical,0,0,0,0,0
+NH3,NH3,InChI=1S/H3N/h1H3,ammonia,0,0,0,0,0
+NO,NO,InChI=1S/NO/c1-2 ,nitric oxide,0,0,0,0,0
+NO2,NO2,InChI=1S/NO2/c2-1-3,nitrogen dioxide,0,0,0,0,0
+NO3,NO3,InChI=1S/NO3/c2-1(3)4/q-1,nitrate radical,0,0,0,0,0
+O,O,,oxygen atom (3P),,,,,
+O1D,O1D,,oxygen atom (1D),,,,,
+O2,O2,InChI=1S/O2/c1-2,molecular oxygen,0,0,0,0,0
+O2CH2OH,O2CH2OH,,produced by CH2O+HO2,,,,,
+O3,O3,InChI=1S/O3/c1-3-2,ozone,0,0,0,0,0
+OH,OH,InChI=1S/H2O/h1H2/p-1,hydroxyl radical,0,0,0,0,0
+PAN,CH3C(O)OONO2,InChI=1S/C2H3NO5/c1-2(4)7-8-3(5)6/h1H3,peroxyacetylnitrate,1,0,1,2,1
+PMN,CH2=C(CH3)C(O)OONO2,"InChI=1S/C4H5NO5/c1-3(2)4(6)9-10-5(7)8/h1H2,2H3",peroxymethacryloyl nitrate (MPAN),2,0,1,2,1
+PO2,HOCH2CH(OO)CH3,,RO2 from isoprene,,,,,
+PP,HOCH2CH(OOH)CH3,,peroxide from PO2,,,,,
+PPN,CH3CH2C(O)OONO2,"InChI=1S/C3H5NO5/c1-2-3(5)8-9-4(6)7/h2H2,1H3",peroxypropionylnitrate,2,0,1,2,1
+PRN1,O2NOCH2CH(OO)CH3,,RO2 from propene + NO3,,,,,
+PRPE,C3H6,"InChI=1S/C3H6/c1-3-2/h3H,1H2,2H3",≥C4 alkenes,1,0,0,0,0
+PRPN,O2NOCH2CH(OOH)CH3,,peroxide from PRN1,,,,,
+R4N1,RO2 from R4N2,,RO2 from R4N2,,,,,
+R4N2,RO2NO,,≥C4 alkylnitrates,,,,,
+R4O2,RO2 from ALK4,,RO2 from ALK4,,,,,
+R4P,CH3CH2CH2CH2OOH,,peroxide from R4O2,,,,,
+RA3P,CH3CH2CH2OOH,,peroxide from A3O2,,,,,
+RB3P,CH3CH(OOH)CH3,,peroxide from B3O2,,,,,
+RCHO,CH3CH2CHO,,>C2 aldehydes,,,,,
+RCO3,CH3CH2C(O)OO,,peroxypropionyl radical,,,,,
+RCOOH,C2H5C(O)OH,,>C2 organic acids,,,,,
+RIO1,HOCH2C(OO)(CH3)CH=CHOH,,RO2 from isoprene oxidation products,,,,,
+RIO2,HOCH2C(OO)(CH3)CH=CH2,,RO2 from isoprene,,,,,
+RIP,HOCH2C(OOH)(CH3)CH=CH2,,peroxide from RIO2,,,,,
+ROH,C3H7OH,,>C2 alcohols,,,,,
+RP,CH3CH2C(O)OOH,,peroxide from RCO3,,,,,
+VRO2,HOCH2CH(OO)C(O)CH3,,RO2 from MVK+OH,,,,,
+VRP,HOCH2CH(OOH)C(O)CH3,,peroxide from VRO2,,,,,
+DMS,(CH3)2S,InChI=1S/C2H6S/c1-3-2/h1-2H3,dimethylsulfide,0,0,0,0,0
+SO2,SO2,InChI=1S/O2S/c1-3-2,sulfur dioxide,0,0,0,0,0
+SO4,SO4,"InChI=1S/H2O4S/c1-5(2,3)4/h(H2,1,2,3,4)/p-2",sulfate radical,0,0,0,0,0
+MSA,CH4SO3,"InChI=1S/CH4O3S/c1-5(2,3)4/h1H3,(H,2,3,4)",methanesulfonic acid,0,0,0,0,0
